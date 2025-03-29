@@ -1,0 +1,34 @@
+.video-container {
+    position: absolute;
+    margin-top: 20px;
+    width: 640px; /* Set a specific width */
+    height: 480px; /* Set a specific height */
+}
+
+.controls {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.controls button {
+    padding: 8px 16px;
+    cursor: pointer;
+    background-color: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.controls button:hover {
+    background-color: #2d3748;
+}
+
+.loading {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f7fafc;
+    border-radius: 4px;
+    color: #4a5568;
+}
