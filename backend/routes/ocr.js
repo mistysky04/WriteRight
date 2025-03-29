@@ -47,7 +47,8 @@ router.post('/image', upload.single('image'), async (req, res) => {
             });
 
             if (poll.data.status === 'succeeded') {
-                result = poll.data;
+                result = getConfidence(poll.data);
+
                 break;
             } else if (poll.data.status === 'failed') {
                 throw new Error('OCR failed');
@@ -67,7 +68,11 @@ router.post('/image', upload.single('image'), async (req, res) => {
     console.error('❌ OCR Error:', errorMsg);
     res.status(500).json({ error: 'OCR request failed', detail: errorMsg });
 }
-
 });
+
+
+function getConfidence(result){
+    return 123; // stub
+}
 
 module.exports = router;
