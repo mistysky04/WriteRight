@@ -7,7 +7,6 @@ const HandDrawing = () => {
     const [isDetecting, setIsDetecting] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [fps, setFps] = useState(0);
-    const [handedness, setHandedness] = useState('-');
     const [numHands, setNumHands] = useState(0);
 
     useEffect(() => {
@@ -167,7 +166,6 @@ const HandDrawing = () => {
                     // Clear canvas if no hands detected
                     const ctx = canvasRef.current.getContext('2d');
                     ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-                    setHandedness('-');
                     setNumHands(0);
                 }
             }
@@ -200,19 +198,23 @@ const HandDrawing = () => {
                 </div>
             ) : null}
 
-            <div>
-                <video
-                    ref={videoRef}
-                    className="absolute top-0 left-0 w-full h-full border border-gray-300 rounded"
-                    autoPlay
-                    playsInline
-                />
-                <canvas
-                    ref={canvasRef}
-                    className="absolute top-0 left-0 w-full h-full"
-                    style={{ pointerEvents: 'none' }}
-                />
-            </div>
+
+                <div className="relative mb-4" style={{ width: '640px', height: '480px' }}>
+                    <video
+                        ref={videoRef}
+                        className="absolute top-0 left-0 w-full h-full border border-gray-300 rounded"
+                        autoPlay
+                        playsInline
+                    />
+                    <canvas
+                        ref={canvasRef}
+                        className="absolute top-0 left-0 w-full h-full"
+                        style={{ pointerEvents: 'none', zIndex: 10, backgroundColor: "rgba(255, 0, 0, 0.2)" }}
+                        width={640}
+                        height={480}
+                    />
+                </div>
+
         </div>
     );
 };
