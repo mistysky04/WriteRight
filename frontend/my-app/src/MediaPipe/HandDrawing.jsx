@@ -116,22 +116,12 @@ const HandDrawing = () => {
 
             {/* Video feed with overlay container */}
             <div className="video-overlay-container">
-            <video
+                <video
                     ref={videoRef}
                     autoPlay
                     playsInline
                 />
                 <HandCanvas landmarks={landmarks} />
-            </div>
-
-            <div className="mt-4 text-sm bg-blue-50 p-3 rounded">
-                <h3 className="font-bold">Instructions:</h3>
-                <ul className="list-disc pl-5 mt-1">
-                    <li>Move your index finger (red dot) closer to the camera to draw</li>
-                    <li>Move it away from the camera to lift the pen</li>
-                    <li>Use controls below the canvas to change color and line width</li>
-                    <li>Enable Debug Mode to see Z-values and help calibrate the threshold</li>
-                </ul>
             </div>
         </div>
     );

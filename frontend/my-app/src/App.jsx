@@ -1,13 +1,16 @@
 import React from 'react'
 import './App.css'
-import HandDrawing from "./MediaPipe/HandDrawing.jsx";
+import CrumpledPaper from './components/CrumpledPaper.jsx';
+import Logo from './components/Logo.jsx';
 
 function App() {
 
   return (
     <>
-          <HandDrawing />
-
+      <div className="App">
+        <CrumpledPaper />
+        <Logo />
+      </div>
     </>
   )
 }

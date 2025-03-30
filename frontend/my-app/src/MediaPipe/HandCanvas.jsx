@@ -154,7 +154,8 @@ const HandCanvas = ({ landmarks }) => {
                     top: 0,
                     transform: 'scaleX(-1)',
                     pointerEvents: 'none',
-                    zIndex: 10
+                    zIndex: 10,
+                    overflow: 'hidden'
                 }}
             />
 
@@ -170,7 +171,8 @@ const HandCanvas = ({ landmarks }) => {
                     transform: 'scaleX(-1)', // Keep consistent with video mirroring
                     pointerEvents: 'none',
                     zIndex: 9,
-                    backgroundColor: 'rgba(255, 255, 255, 0.5)'
+                    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                    overflow: 'hidden'
                 }}
             />
 
