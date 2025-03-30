@@ -8,6 +8,7 @@ const HandDrawing = () => {
     const [landmarks, setLandmarks] = useState([]);
     const [isDebugMode, setIsDebugMode] = useState(false);
     const [zValue, setZValue] = useState(0);
+    const [isOverlay, setIsOverlay] = useState(false);
 
     useEffect(() => {
         let handLandmarker;
@@ -69,7 +70,7 @@ const HandDrawing = () => {
 
                 // Update Z value for debug mode if index finger is detected
                 if (isDebugMode && results?.landmarks?.length > 0 && results.landmarks[0].length > 8) {
-                    setZValue(results.landmarks[0][8].z);
+                    setZValue(-8+(-results.landmarks[0][8].z)*100);
                 }
             }
 
@@ -101,15 +102,22 @@ const HandDrawing = () => {
                         onChange={() => setIsDebugMode(!isDebugMode)}
                         className="form-checkbox h-4 w-4"
                     />
-                    <span>Debug Mode</span>
+                    <span>See Closeness</span>
+                </label>
+
+                <label className="flex items-center space-x-2">
+                    <input
+                        type="checkbox"
+                        checked={isOverlay}
+                        onChange={() => setIsOverlay(!isOverlay)}
+                        className="form-checkbox h-4 w-4"
+                    />
+                    <span>Pick an overlay</span>
                 </label>
 
                 {isDebugMode && (
                     <div className="bg-black bg-opacity-70 text-white p-2 mt-2 rounded text-sm">
-                        <p>Z Value: {zValue.toFixed(4)}</p>
-                        <p className="text-xs mt-1">
-                            Adjust Z_THRESHOLD in HandCanvas.jsx if needed
-                        </p>
+                        <p>Closeness: {zValue.toFixed(4)}</p>
                     </div>
                 )}
             </div>
@@ -121,7 +129,7 @@ const HandDrawing = () => {
                     autoPlay
                     playsInline
                 />
-                <HandCanvas landmarks={landmarks} />
+                <HandCanvas landmarks={landmarks} isOverlay={isOverlay} />
             </div>
         </div>
     );
