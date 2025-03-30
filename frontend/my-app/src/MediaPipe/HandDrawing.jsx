@@ -6,6 +6,8 @@ const HandDrawing = () => {
     const videoRef = useRef(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [landmarks, setLandmarks] = useState([]);
+    const [isDebugMode, setIsDebugMode] = useState(false);
+    const [zValue, setZValue] = useState(0);
 
     useEffect(() => {
         let handLandmarker;
@@ -64,6 +66,11 @@ const HandDrawing = () => {
             if (handLandmarker) {
                 const results = handLandmarker.detectForVideo(videoRef.current, performance.now());
                 setLandmarks(results?.landmarks || []);
+
+                // Update Z value for debug mode if index finger is detected
+                if (isDebugMode && results?.landmarks?.length > 0 && results.landmarks[0].length > 8) {
+                    setZValue(results.landmarks[0][8].z);
+                }
             }
 
             rafId = requestAnimationFrame(predictWebcam);
@@ -75,31 +82,67 @@ const HandDrawing = () => {
             if (rafId) cancelAnimationFrame(rafId);
             if (camera) camera.getTracks().forEach(track => track.stop());
         };
-    }, []);
+    }, [isDebugMode]);
 
     return (
-        <div className="hand-drawing-container">
+        <div className="hand-drawing-container relative">
             {errorMessage && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
                     {errorMessage}
                 </div>
             )}
 
+            {/* Debug mode toggle */}
+            <div className="absolute top-2 right-2 z-20">
+                <label className="flex items-center space-x-2">
+                    <input
+                        type="checkbox"
+                        checked={isDebugMode}
+                        onChange={() => setIsDebugMode(!isDebugMode)}
+                        className="form-checkbox h-4 w-4"
+                    />
+                    <span>Debug Mode</span>
+                </label>
+
+                {isDebugMode && (
+                    <div className="bg-black bg-opacity-70 text-white p-2 mt-2 rounded text-sm">
+                        <p>Z Value: {zValue.toFixed(4)}</p>
+                        <p className="text-xs mt-1">
+                            Adjust Z_THRESHOLD in HandCanvas.jsx if needed
+                        </p>
+                    </div>
+                )}
+            </div>
+
             {/* Video feed with overlay container */}
-            <div className="video-container"
-                 style={{
-                     position: 'absolute',
-                     left: 0,
-                     top: 0,
-                     transform: 'scaleX(-1)',
-                     pointerEvents: 'none',
-                 }}>
-                <video ref={videoRef} autoPlay playsInline />
+            <div className="video-container relative w-full h-full">
+                <video
+                    ref={videoRef}
+                    autoPlay
+                    playsInline
+                    className="w-full h-full"
+                    style={{
+                        transform: 'scaleX(-1)',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        zIndex: 5
+                    }}
+                />
                 <HandCanvas landmarks={landmarks} />
+            </div>
+
+            <div className="mt-4 text-sm bg-blue-50 p-3 rounded">
+                <h3 className="font-bold">Instructions:</h3>
+                <ul className="list-disc pl-5 mt-1">
+                    <li>Move your index finger (red dot) closer to the camera to draw</li>
+                    <li>Move it away from the camera to lift the pen</li>
+                    <li>Use controls below the canvas to change color and line width</li>
+                    <li>Enable Debug Mode to see Z-values and help calibrate the threshold</li>
+                </ul>
             </div>
         </div>
     );
-
 };
 
 export default HandDrawing;
