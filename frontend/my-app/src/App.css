@@ -173,3 +173,67 @@
     /* Adjust for mobile view */
   }
 }
+/* Checkbox toggle switch styling */
+.checkbox-wrapper-22 .switch {
+  display: inline-block;
+  height: 20px;  /* Reduced from 34px */
+  position: relative;
+  width: 36px;  /* Reduced from 60px */
+  margin-bottom: 8px;  /* Added bottom margin */
+}
+
+.checkbox-wrapper-22 .switch input {
+  display: none;
+}
+
+.checkbox-wrapper-22 .slider {
+  background-color: #000000;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: .4s;
+}
+
+.checkbox-wrapper-22 .slider:before {
+  background-color: #fff;
+  bottom: 2px;  /* Reduced from 4px */
+  content: "";
+  height: 16px;  /* Reduced from 26px */
+  left: 2px;  /* Reduced from 4px */
+  position: absolute;
+  transition: .4s;
+  width: 16px;  /* Reduced from 26px */
+}
+
+.checkbox-wrapper-22 input:checked + .slider {
+  background-color: #f1c892;
+}
+
+.checkbox-wrapper-22 input:checked + .slider:before {
+  transform: translateX(16px);  /* Reduced from 26px */
+}
+
+.checkbox-wrapper-22 .slider.round {
+  border-radius: 20px;  /* Adjusted for smaller size */
+}
+
+.checkbox-wrapper-22 .slider.round:before {
+  border-radius: 50%;
+}
+
+/* Vertical alignment for the toggle and text */
+.checkbox-wrapper-22 {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-wrapper-22 span {
+  margin-left: 8px;
+  margin-bottom: 8px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 1;
+}
