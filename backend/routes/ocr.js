@@ -1,6 +1,8 @@
 const express = require('express');
 const multer = require('multer');
 const axios = require('axios');
+const fs = require("node:fs");
+const path = require('path');
 require('dotenv').config();
 
 const router = express.Router();
@@ -21,7 +23,7 @@ router.post('/image', upload.single('image'), async (req, res) => {
             return res.status(400).json({ error: 'No image uploaded' });
         }
 
-        const imageBuffer = req.file.buffer; // ✅ Already in memory!
+        const imageBuffer = req.file.buffer;
 
         const response = await axios.post(
             AZURE_ENDPOINT,
@@ -72,7 +74,7 @@ router.post('/image', upload.single('image'), async (req, res) => {
 
 
 function getConfidence(result){
-    return 123; // stub
+    console.log(JSON.stringify(result)); // stub
 }
 
 module.exports = router;
