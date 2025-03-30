@@ -10,6 +10,7 @@ import overlayNi from "./assets/overlay_2ni.png";
 import overlaySan from "./assets/overlay_3san.png";
 import overlayYon from "./assets/overlay_4yon.png";
 import overlayGo from "./assets/overlay_5go.png";
+import Score from './components/Score.jsx';
 
 function App() {
     // State to track which image is currently displayed (null means no image)
@@ -25,26 +26,18 @@ function App() {
     };
   return (
     <div className="App">
-      {/* Background with paper texture */}
       <div className="paper-background"></div>
-
-      {/* Logo at the top */}
       <div className="header">
         <Logo />
       </div>
-
-      {/* Main content area with three columns */}
       <div className="three-column-layout">
-        {/* Empty left column for balance */}
-        <div className="column left-spacer"></div>
-
-        {/* Center column with drawing + buttons */}
+        <div className="column left-spacer">
+          <Score />
+        </div>
         <div className="column center-content">
           <HandDrawing currentKanji={currentKanji} images={images}/>
           <KanjiButtons currentKanji={currentKanji} setCurrentKanji={setCurrentKanji} images={images}/>
         </div>
-
-        {/* Right column with instructions */}
         <div className="column right-content">
           <Instructions />
           <div className="little-guys-container">
