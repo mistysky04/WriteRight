@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import APIClient from "../APIClient.js";
 
 const HandCanvas = ({ landmarks }) => {
     const skeletonCanvasRef = useRef(null);
@@ -9,6 +10,7 @@ const HandCanvas = ({ landmarks }) => {
     // Drawing settings
     const [penColor, setPenColor] = useState('#000000');
     const [lineWidth, setLineWidth] = useState(8);
+    let writeScore;
 
 
     const Z_THRESHOLD = 0.08; /// Z-threshold for drawing
@@ -97,21 +99,17 @@ const HandCanvas = ({ landmarks }) => {
         drawCtx.clearRect(0, 0, drawingCanvasRef.current.width, drawingCanvasRef.current.height);
     };
 
-    // Save drawing as image
     const saveDrawing = () => {
         if (!drawingCanvasRef.current) return;
 
-        // Create a temporary canvas to flip the image horizontally
+        // Step 1: Create flipped image
         const tempCanvas = document.createElement('canvas');
         const tempCtx = tempCanvas.getContext('2d');
         tempCanvas.width = drawingCanvasRef.current.width;
         tempCanvas.height = drawingCanvasRef.current.height;
 
-        // Flip the context horizontally
         tempCtx.translate(tempCanvas.width, 0);
         tempCtx.scale(-1, 1);
-
-        // Draw the mirrored image
         tempCtx.drawImage(
             drawingCanvasRef.current,
             0, 0,
@@ -119,12 +117,18 @@ const HandCanvas = ({ landmarks }) => {
             drawingCanvasRef.current.height
         );
 
-        // Create download link with the correct orientation
-        const link = document.createElement('a');
-        link.download = 'PEEPEEPOOPOO.png';
-        link.href = tempCanvas.toDataURL();
-        link.click();
+        // Step 2: Save to image variable (base64)
+            tempCanvas.toBlob((blob) => {
+                if (blob) {
+                    handleBlobImage(blob);
+                }
+            }, "image/png");
     };
+
+    const handleBlobImage = (blob) =>{
+        writeScore = APIClient.postImage(blob);
+        console.log(writeScore);
+    }
 
     return (
         <div style={{ position: 'relative', width: '640px', height: '480px' }}>
