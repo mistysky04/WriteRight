@@ -179,8 +179,8 @@ const HandCanvas = ({ landmarks }) => {
                 />
                 <input
                     type="range"
-                    min="5"
-                    max="30"
+                    min="1"
+                    max="20"
                     value={lineWidth}
                     onChange={(e) => setLineWidth(parseInt(e.target.value))}
                     className="w-24"
