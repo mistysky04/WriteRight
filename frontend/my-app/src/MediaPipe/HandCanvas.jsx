@@ -32,7 +32,7 @@ const HandCanvas = ({ landmarks }) => {
                 // Draw just the index fingertip as a large dot
                 ctx.fillStyle = penColor;
                 ctx.beginPath();
-                ctx.arc(indexFinger.x * width, indexFinger.y * height, 10, 0, 2 * Math.PI);
+                ctx.arc(indexFinger.x * width, indexFinger.y * height, lineWidth-3, 0, 2 * Math.PI);
                 ctx.fill();
 
                 // Add a black border for better visibility
