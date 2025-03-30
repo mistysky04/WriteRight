@@ -8,7 +8,7 @@ const HandCanvas = ({ landmarks }) => {
 
     // Drawing settings
     const [penColor, setPenColor] = useState('#000000');
-    const [lineWidth, setLineWidth] = useState(3);
+    const [lineWidth, setLineWidth] = useState(8);
 
 
     const Z_THRESHOLD = 0.08; /// Z-threshold for drawing
