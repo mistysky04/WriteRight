@@ -100,9 +100,29 @@ const HandCanvas = ({ landmarks }) => {
     // Save drawing as image
     const saveDrawing = () => {
         if (!drawingCanvasRef.current) return;
+
+        // Create a temporary canvas to flip the image horizontally
+        const tempCanvas = document.createElement('canvas');
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCanvas.width = drawingCanvasRef.current.width;
+        tempCanvas.height = drawingCanvasRef.current.height;
+
+        // Flip the context horizontally
+        tempCtx.translate(tempCanvas.width, 0);
+        tempCtx.scale(-1, 1);
+
+        // Draw the mirrored image
+        tempCtx.drawImage(
+            drawingCanvasRef.current,
+            0, 0,
+            drawingCanvasRef.current.width,
+            drawingCanvasRef.current.height
+        );
+
+        // Create download link with the correct orientation
         const link = document.createElement('a');
         link.download = 'PEEPEEPOOPOO.png';
-        link.href = drawingCanvasRef.current.toDataURL();
+        link.href = tempCanvas.toDataURL();
         link.click();
     };
 
