@@ -1,19 +1,19 @@
 /* FullScreenPaperTexture.css */
 .paper-container {
-    position: relative;
-    width: 100vh;
-    min-height: 100vh;
+    position: absolute;
+    /* width: 100vh;
+    min-height: 100vh; */
     background-color: #fff;
     overflow: hidden;
 }
 
-.content {
+/* .content {
     position: relative;
     z-index: 2;
     padding: 20px;
     width: 100vh;
     min-height: 100vh;
-}
+} */
 
 .paper-texture {
     position: fixed;

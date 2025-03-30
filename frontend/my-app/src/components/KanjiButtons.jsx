@@ -1,21 +1,16 @@
-import React from 'react';
-import { MDBBtn } from 'mdb-react-ui-kit';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
-export default function App() {
+function KanjiButtons() {
     return (
-        <>
-            <MDBBtn className='me-1' color='success'>
-                Success
-            </MDBBtn>
-            <MDBBtn className='me-1' color='danger'>
-                Danger
-            </MDBBtn>
-            <MDBBtn className='me-1' color='warning'>
-                Warning
-            </MDBBtn>
-            <MDBBtn color='info'>
-                Info
-            </MDBBtn>
-        </>
+        <ButtonGroup aria-label="Basic example">
+            <Button variant="secondary" style={{ backgroundColor: "#ecaab5", fontSize: "1.5em" }}>一</Button>
+            <Button variant="secondary" style={{ backgroundColor: "#ecaab5", fontSize: "1.5em" }}>二</Button>
+            <Button variant="secondary" style={{ backgroundColor: "#ecaab5", fontSize: "1.5em" }}>三</Button>
+            <Button variant="secondary" style={{ backgroundColor: "#ecaab5", fontSize: "1.5em" }}>四</Button>
+            <Button variant="secondary" style={{ backgroundColor: "#ecaab5", fontSize: "1.5em" }}>五</Button>
+        </ButtonGroup>
     );
 }
+
+export default KanjiButtons;

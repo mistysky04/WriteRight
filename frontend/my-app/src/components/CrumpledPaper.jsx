@@ -7,7 +7,7 @@ const CrumpledPaper = () => {
         <div className="paper-container">
             {/* This is the content that will appear on top of the texture */}
             <div className="content">
-                <HandDrawing />
+                {/* <HandDrawing /> */}
             </div>
             {/* This is the crumpled paper texture overlay */}
             <div className="paper-texture"></div>

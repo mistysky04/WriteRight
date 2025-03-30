@@ -5,16 +5,6 @@
   text-align: center;
 }
 
-/* .logo {
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-  position: absolute;
-top: 0;
-left: 0;
-}
-
-*/
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
@@ -47,12 +37,15 @@ left: 0;
   color: #888;
 }
 
-
 /* === HandDrawing Video and Canvas Overlay === */
 .video-overlay-container {
+  margin: 1rem auto;
+  /* Add margin at the top */
   position: relative;
   width: 640px;
   height: 480px;
+  display: block;
+  /* Center the container */
 }
 
 .video-overlay-container video {
@@ -74,4 +67,11 @@ left: 0;
   z-index: 2;
   /* Ensure it appears above the video */
   pointer-events: none;
+}
+
+.kanji-buttons-container {
+  margin-top: 1rem;
+  /* Add spacing below the HandDrawing */
+  text-align: center;
+  /* Center the buttons */
 }
