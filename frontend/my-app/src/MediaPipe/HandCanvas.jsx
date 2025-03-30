@@ -1,7 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import APIClient from "../APIClient.js";
 
-const HandCanvas = ({ landmarks }) => {
+const HandCanvas = ({landmarks}) => {
     const skeletonCanvasRef = useRef(null);
     const drawingCanvasRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
@@ -67,7 +67,7 @@ const HandCanvas = ({ landmarks }) => {
             if (!isDrawing) {
                 // Start drawing
                 setIsDrawing(true);
-                setLastPosition({ x, y });
+                setLastPosition({x, y});
 
                 // Visual feedback that drawing is active
                 drawCtx.beginPath();
@@ -84,7 +84,7 @@ const HandCanvas = ({ landmarks }) => {
                 drawCtx.lineCap = 'round';
                 drawCtx.lineJoin = 'round';
                 drawCtx.stroke();
-                setLastPosition({ x, y });
+                setLastPosition({x, y});
             }
         } else if (isDrawing) {
             // Lift the pen
@@ -108,6 +108,10 @@ const HandCanvas = ({ landmarks }) => {
         tempCanvas.width = drawingCanvasRef.current.width;
         tempCanvas.height = drawingCanvasRef.current.height;
 
+        // Fill the temp canvas with white background
+        tempCtx.fillStyle = "#FFFFFF";
+        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+
         tempCtx.translate(tempCanvas.width, 0);
         tempCtx.scale(-1, 1);
         tempCtx.drawImage(
@@ -118,20 +122,25 @@ const HandCanvas = ({ landmarks }) => {
         );
 
         // Step 2: Save to image variable (base64)
-            tempCanvas.toBlob((blob) => {
-                if (blob) {
-                    handleBlobImage(blob);
-                }
-            }, "image/png");
+        tempCanvas.toBlob((blob) => {
+            if (blob) {
+                handleBlobImage(blob);
+            }
+        }, "image/png");
+        // Create download link with the correct orientation
+        const link = document.createElement('a');
+        link.download = 'PEEPEEPOOPOO.png';
+        link.href = tempCanvas.toDataURL();
+        link.click();
     };
 
-    const handleBlobImage = (blob) =>{
-        writeScore = APIClient.postImage(blob);
+    const handleBlobImage = async (blob) => {
+        writeScore = await APIClient.postImage(blob);
         console.log(writeScore);
     }
 
     return (
-        <div style={{ position: 'relative', width: '640px', height: '480px' }}>
+        <div style={{position: 'relative', width: '640px', height: '480px'}}>
             {/* Hand tracking visualization canvas */}
             <canvas
                 ref={skeletonCanvasRef}
