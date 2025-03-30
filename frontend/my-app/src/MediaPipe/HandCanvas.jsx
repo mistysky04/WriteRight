@@ -1,21 +1,79 @@
 import React, {useRef, useEffect, useState} from 'react';
 import APIClient from "../APIClient.js";
 
-const HandCanvas = ({landmarks}) => {
+const HandCanvas = ({ landmarks, isOverlay = false, overlayImage = null }) => {
     const skeletonCanvasRef = useRef(null);
     const drawingCanvasRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
     const [lastPosition, setLastPosition] = useState(null);
+    // Keep track of if the background image is loaded
+    const [bgImageLoaded, setBgImageLoaded] = useState(false);
+    const bgImageRef = useRef(null);
 
     // Drawing settings
     const [penColor, setPenColor] = useState('#000000');
     const [lineWidth, setLineWidth] = useState(8);
     let writeScore;
 
+    const Z_THRESHOLD = 0.08; // Z-threshold for drawing
 
-    const Z_THRESHOLD = 0.08; /// Z-threshold for drawing
+    // Effect to handle overlay image loading
+    useEffect(() => {
+        if (isOverlay && overlayImage) {
+            // Create a new image
+            const img = new Image();
+            // Set up onload handler
+            img.onload = () => {
+                bgImageRef.current = img;
+                setBgImageLoaded(true);
 
-    // Draw the hand skeleton and landmarks
+                // Draw the background image when it loads
+                if (drawingCanvasRef.current) {
+                    const ctx = drawingCanvasRef.current.getContext('2d');
+                    // Clear canvas first
+                    ctx.clearRect(0, 0, drawingCanvasRef.current.width, drawingCanvasRef.current.height);
+                    // Draw image
+                    drawBackgroundImage(ctx);
+                }
+            };
+            // Start loading the image
+            img.src = overlayImage;
+        } else {
+            // If overlay is turned off, clear the canvas and reset image loaded state
+            if (drawingCanvasRef.current) {
+                clearCanvas();
+                setBgImageLoaded(false);
+                bgImageRef.current = null;
+            }
+        }
+    }, [isOverlay, overlayImage]);
+
+    // Draw the background image to fit the canvas
+    const drawBackgroundImage = (ctx) => {
+        if (!bgImageRef.current) return;
+
+        const canvas = drawingCanvasRef.current;
+        const img = bgImageRef.current;
+
+        // Scale the image to fit the canvas while maintaining aspect ratio
+        const scale = Math.min(
+            canvas.width / img.width,
+            canvas.height / img.height
+        );
+
+        const x = (canvas.width - img.width * scale) / 2;
+        const y = (canvas.height - img.height * scale) / 2;
+
+        ctx.save();
+        // Since the canvas is mirrored in CSS, we need to flip our drawing context
+        // to ensure the image displays correctly
+        ctx.translate(canvas.width, 0);
+        ctx.scale(-1, 1);
+        ctx.drawImage(img, x, y, img.width * scale, img.height * scale);
+        ctx.restore();
+    };
+
+    // Find index finger (8) landmark
     useEffect(() => {
         if (!skeletonCanvasRef.current || !landmarks || landmarks.length === 0) return;
 
@@ -32,22 +90,22 @@ const HandCanvas = ({landmarks}) => {
             const indexFinger = hand[8];
 
             if (indexFinger) {
-                // Draw just the index fingertip as a larger dot
+                // Draw just the index fingertip as a large dot
                 ctx.fillStyle = penColor;
                 ctx.beginPath();
                 ctx.arc(indexFinger.x * width, indexFinger.y * height, 10, 0, 2 * Math.PI);
                 ctx.fill();
 
-                // Add a white border for better visibility
+                // Add a black border for better visibility
                 ctx.strokeStyle = 'black';
-                ctx.lineWidth = 2;
+                ctx.lineWidth = 1;
                 ctx.stroke();
 
                 // Draw with index finger based on Z position
                 handleDrawing(indexFinger, width, height);
             }
         });
-    }, [landmarks]);
+    }, [landmarks, penColor]);
 
     // Handle drawing with the index finger
     const handleDrawing = (indexFinger, width, height) => {
@@ -58,8 +116,6 @@ const HandCanvas = ({landmarks}) => {
         const y = indexFinger.y * height;
 
         // Check Z position
-        // Note: For Tasks Vision API, a smaller Z value typically means
-        // the finger is closer to the camera, but the scale might be different
         const isFingerClose = Math.abs(indexFinger.z) > Z_THRESHOLD;
 
         if (isFingerClose) {
@@ -87,7 +143,7 @@ const HandCanvas = ({landmarks}) => {
                 setLastPosition({x, y});
             }
         } else if (isDrawing) {
-            // Lift the pen
+            // Lift the "pen"
             setIsDrawing(false);
         }
     };
@@ -97,6 +153,11 @@ const HandCanvas = ({landmarks}) => {
         if (!drawingCanvasRef.current) return;
         const drawCtx = drawingCanvasRef.current.getContext('2d');
         drawCtx.clearRect(0, 0, drawingCanvasRef.current.width, drawingCanvasRef.current.height);
+
+        // If we have a background image and overlay is active, redraw it
+        if (isOverlay && bgImageRef.current) {
+            drawBackgroundImage(drawCtx);
+        }
     };
 
     const saveDrawing = () => {
@@ -152,7 +213,8 @@ const HandCanvas = ({landmarks}) => {
                     top: 0,
                     transform: 'scaleX(-1)',
                     pointerEvents: 'none',
-                    zIndex: 10
+                    zIndex: 10,
+                    overflow: 'hidden'
                 }}
             />
 
@@ -168,7 +230,7 @@ const HandCanvas = ({landmarks}) => {
                     transform: 'scaleX(-1)', // Keep consistent with video mirroring
                     pointerEvents: 'none',
                     zIndex: 9,
-                    backgroundColor: 'rgba(255, 255, 255, 0.5)'
+                    backgroundColor: isOverlay && !bgImageLoaded ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.5)'
                 }}
             />
 
@@ -200,7 +262,7 @@ const HandCanvas = ({landmarks}) => {
                     onChange={(e) => setLineWidth(parseInt(e.target.value))}
                     className="w-24"
                 />
-                <button onClick={saveDrawing} className="px-2 py-1 bg-green-500 text-white rounded">Save</button>
+                <button onClick={saveDrawing} className="px-2 py-1 bg-green-500 text-white rounded">Submit</button>
             </div>
 
             {/* Drawing status indicator */}
