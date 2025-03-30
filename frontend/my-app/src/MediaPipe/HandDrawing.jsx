@@ -106,7 +106,7 @@ const HandDrawing = () => {
 
                 {isDebugMode && (
                     <div className="bg-black bg-opacity-70 text-white p-2 mt-2 rounded text-sm">
-                        <p>Closeness: {zValue.toFixed(4)}</p>
+                        <p>Closeness: {zValue.toFixed(1)}</p>
                     </div>
                 )}
             </div>
