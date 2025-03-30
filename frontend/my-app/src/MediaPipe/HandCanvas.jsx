@@ -1,5 +1,4 @@
-import React, {useRef, useEffect, useState} from 'react';
-import APIClient from "../APIClient.js";
+import React, { useRef, useEffect, useState } from 'react';
 
 const HandCanvas = ({ landmarks }) => {
     const skeletonCanvasRef = useRef(null);
@@ -9,8 +8,7 @@ const HandCanvas = ({ landmarks }) => {
 
     // Drawing settings
     const [penColor, setPenColor] = useState('#000000');
-    const [lineWidth, setLineWidth] = useState(8);
-    let writeScore;
+    const [lineWidth, setLineWidth] = useState(18);
 
     const Z_THRESHOLD = 0.08; // Z-threshold for drawing
 
@@ -34,7 +32,7 @@ const HandCanvas = ({ landmarks }) => {
                 // Draw just the index fingertip as a large dot
                 ctx.fillStyle = penColor;
                 ctx.beginPath();
-                ctx.arc(indexFinger.x * width, indexFinger.y * height, 10, 0, 2 * Math.PI);
+                ctx.arc(indexFinger.x * width, indexFinger.y * height, lineWidth * 0.5, 0, 2 * Math.PI);
                 ctx.fill();
 
                 // Add a black border for better visibility
@@ -64,7 +62,7 @@ const HandCanvas = ({ landmarks }) => {
             if (!isDrawing) {
                 // Start drawing
                 setIsDrawing(true);
-                setLastPosition({x, y});
+                setLastPosition({ x, y });
 
                 // Visual feedback that drawing is active
                 drawCtx.beginPath();
@@ -81,7 +79,7 @@ const HandCanvas = ({ landmarks }) => {
                 drawCtx.lineCap = 'round';
                 drawCtx.lineJoin = 'round';
                 drawCtx.stroke();
-                setLastPosition({x, y});
+                setLastPosition({ x, y });
             }
         } else if (isDrawing) {
             // Lift the "pen"
@@ -96,21 +94,21 @@ const HandCanvas = ({ landmarks }) => {
         drawCtx.clearRect(0, 0, drawingCanvasRef.current.width, drawingCanvasRef.current.height);
     };
 
+    // Save drawing as image
     const saveDrawing = () => {
         if (!drawingCanvasRef.current) return;
 
-        // Step 1: Create flipped image
+        // Create a temporary canvas to flip the image horizontally
         const tempCanvas = document.createElement('canvas');
         const tempCtx = tempCanvas.getContext('2d');
         tempCanvas.width = drawingCanvasRef.current.width;
         tempCanvas.height = drawingCanvasRef.current.height;
 
-        // Fill the temp canvas with white background
-        tempCtx.fillStyle = "#FFFFFF";
-        tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-
+        // Flip the context horizontally
         tempCtx.translate(tempCanvas.width, 0);
         tempCtx.scale(-1, 1);
+
+        // Draw the mirrored image
         tempCtx.drawImage(
             drawingCanvasRef.current,
             0, 0,
@@ -118,12 +116,6 @@ const HandCanvas = ({ landmarks }) => {
             drawingCanvasRef.current.height
         );
 
-        // Step 2: Save to image variable (base64)
-        tempCanvas.toBlob((blob) => {
-            if (blob) {
-                handleBlobImage(blob);
-            }
-        }, "image/png");
         // Create download link with the correct orientation
         const link = document.createElement('a');
         link.download = 'PEEPEEPOOPOO.png';
@@ -131,13 +123,8 @@ const HandCanvas = ({ landmarks }) => {
         link.click();
     };
 
-    const handleBlobImage = async (blob) => {
-        writeScore = await APIClient.postImage(blob);
-        console.log(writeScore);
-    }
-
     return (
-        <div style={{position: 'relative', width: '640px', height: '480px'}}>
+        <div style={{ position: 'relative', width: '640px', height: '480px' }}>
             {/* Hand tracking visualization canvas */}
             <canvas
                 ref={skeletonCanvasRef}
