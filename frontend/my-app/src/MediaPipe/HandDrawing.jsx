@@ -8,7 +8,6 @@ const HandDrawing = () => {
     const [landmarks, setLandmarks] = useState([]);
     const [isDebugMode, setIsDebugMode] = useState(false);
     const [zValue, setZValue] = useState(0);
-    const [isOverlay, setIsOverlay] = useState(false);
 
     useEffect(() => {
         let handLandmarker;
@@ -105,16 +104,6 @@ const HandDrawing = () => {
                     <span>See Closeness</span>
                 </label>
 
-                <label className="flex items-center space-x-2">
-                    <input
-                        type="checkbox"
-                        checked={isOverlay}
-                        onChange={() => setIsOverlay(!isOverlay)}
-                        className="form-checkbox h-4 w-4"
-                    />
-                    <span>Pick an overlay</span>
-                </label>
-
                 {isDebugMode && (
                     <div className="bg-black bg-opacity-70 text-white p-2 mt-2 rounded text-sm">
                         <p>Closeness: {zValue.toFixed(4)}</p>
@@ -129,7 +118,7 @@ const HandDrawing = () => {
                     autoPlay
                     playsInline
                 />
-                <HandCanvas landmarks={landmarks} isOverlay={isOverlay} />
+                <HandCanvas landmarks={landmarks}/>
             </div>
         </div>
     );
