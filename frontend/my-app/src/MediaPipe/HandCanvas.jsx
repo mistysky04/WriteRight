@@ -8,7 +8,7 @@ const HandCanvas = ({ landmarks }) => {
 
     // Drawing settings
     const [penColor, setPenColor] = useState('#000000');
-    const [lineWidth, setLineWidth] = useState(8);
+    const [lineWidth, setLineWidth] = useState(18);
 
     const Z_THRESHOLD = 0.08; // Z-threshold for drawing
 
@@ -32,7 +32,7 @@ const HandCanvas = ({ landmarks }) => {
                 // Draw just the index fingertip as a large dot
                 ctx.fillStyle = penColor;
                 ctx.beginPath();
-                ctx.arc(indexFinger.x * width, indexFinger.y * height, 10, 0, 2 * Math.PI);
+                ctx.arc(indexFinger.x * width, indexFinger.y * height, lineWidth * 0.5, 0, 2 * Math.PI);
                 ctx.fill();
 
                 // Add a black border for better visibility
@@ -179,8 +179,8 @@ const HandCanvas = ({ landmarks }) => {
                 />
                 <input
                     type="range"
-                    min="1"
-                    max="20"
+                    min="5"
+                    max="30"
                     value={lineWidth}
                     onChange={(e) => setLineWidth(parseInt(e.target.value))}
                     className="w-24"
