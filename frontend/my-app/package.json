@@ -11,7 +11,10 @@
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "^0.10.22-rc.20250304",
+    "bootstrap": "^5.3.3",
+    "mdb-react-ui-kit": "^9.0.0",
     "react": "^19.0.0",
+    "react-bootstrap": "^2.10.9",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {

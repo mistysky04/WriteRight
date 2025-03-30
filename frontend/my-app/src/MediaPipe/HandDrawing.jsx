@@ -70,7 +70,7 @@ const HandDrawing = () => {
 
                 // Update Z value for debug mode if index finger is detected
                 if (isDebugMode && results?.landmarks?.length > 0 && results.landmarks[0].length > 8) {
-                    setZValue(-8+(-results.landmarks[0][8].z)*100);
+                    setZValue(-8 + (-results.landmarks[0][8].z) * 100);
                 }
             }
 
@@ -124,7 +124,7 @@ const HandDrawing = () => {
 
             {/* Video feed with overlay container */}
             <div className="video-overlay-container">
-            <video
+                <video
                     ref={videoRef}
                     autoPlay
                     playsInline

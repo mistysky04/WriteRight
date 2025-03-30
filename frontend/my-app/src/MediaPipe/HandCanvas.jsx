@@ -200,7 +200,8 @@ const HandCanvas = ({ landmarks, isOverlay = false, overlayImage = null }) => {
                     top: 0,
                     transform: 'scaleX(-1)',
                     pointerEvents: 'none',
-                    zIndex: 10
+                    zIndex: 10,
+                    overflow: 'hidden'
                 }}
             />
 
