@@ -1,51 +1,109 @@
 #root {
-  max-width: 100vh;
+  width: 100%;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
+  overflow-x: hidden;
+}
+
+.App {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Paper texture background */
+.paper-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-image: url('./assets/crumpled_paper.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  mix-blend-mode: multiply;
+  opacity: 0.9;
+}
+
+/* Header section with logo */
+.header {
+  padding: 1rem 0;
+  width: 100%;
+}
+
+/* Three column layout */
+.three-column-layout {
+  display: flex;
+  width: 100%;
+  flex: 1;
+}
+
+/* Common column properties */
+.column {
+  padding: 1rem;
+}
+
+/* Left spacer column (empty) */
+.left-spacer {
+  flex: 1;
+}
+
+/* Center column with main content */
+.center-content {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 700px;
+}
+
+/* Right column with instructions and speech bubble */
+.right-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  /* Changed to align at top */
+  text-align: left;
+  overflow-y: auto;
+  position: relative;
+  padding: 2rem;
+  background-image: url('./assets/speechbubble.svg');
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: contain;
+  min-height: 300px;
+  margin-right: 10px;
+}
+
+.little-guys-container {
+  margin-top: 5rem;
+  margin-left: 3rem;
+}
+
+/* Logo styling */
+.logo {
+  transition: filter 0.3s ease;
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 1em rgba(100, 108, 255, 0.6));
 }
 
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-/* === HandDrawing Video and Canvas Overlay === */
+/* HandDrawing Video and Canvas Overlay */
 .video-overlay-container {
-  margin: 1rem auto;
-  /* Add margin at the top */
   position: relative;
-  width: 640px;
+  width: 100%;
+  max-width: 640px;
   height: 480px;
   display: block;
-  /* Center the container */
 }
 
 .video-overlay-container video {
@@ -53,7 +111,6 @@
   height: 100%;
   object-fit: cover;
   transform: scaleX(-1);
-  /* Mirrored webcam */
   position: absolute;
   top: 0;
   left: 0;
@@ -65,13 +122,54 @@
   top: 0;
   left: 0;
   z-index: 2;
-  /* Ensure it appears above the video */
   pointer-events: none;
+  width: 100%;
+  height: 100%;
 }
 
-.kanji-buttons-container {
-  margin-top: 1rem;
-  /* Add spacing below the HandDrawing */
-  text-align: center;
-  /* Center the buttons */
+/* Instructions styling */
+.Instructions {
+  font-size: 1.2rem;
+  color: #333;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  /* Changed from absolute */
+  z-index: 1;
+  margin: 0 auto;
+  padding-top: 60px;
+  /* Added top padding to position text down from bubble top */
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .three-column-layout {
+    flex-direction: column;
+  }
+
+  .left-spacer {
+    display: none;
+  }
+
+  .center-content {
+    margin: 0 auto;
+  }
+
+  .right-content {
+    border-left: none;
+    margin-top: 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    width: 100%;
+    background-position: center;
+    min-height: 350px;
+    padding: 2.5rem 2rem;
+  }
+
+  .Instructions {
+    padding-top: 80px;
+    /* Adjust for mobile view */
+  }
 }
