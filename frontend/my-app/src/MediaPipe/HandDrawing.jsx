@@ -3,7 +3,7 @@ import { HandLandmarker, FilesetResolver } from "@mediapipe/tasks-vision";
 import HandCanvas from './HandCanvas';
 import '../App.css';
 
-const HandDrawing = () => {
+const HandDrawing = ({currentKanji, images}) => {
     const videoRef = useRef(null);
     const [errorMessage, setErrorMessage] = useState('');
     const [landmarks, setLandmarks] = useState([]);
@@ -119,6 +119,16 @@ const HandDrawing = () => {
                     playsInline
                 />
                 <HandCanvas landmarks={landmarks}/>
+                <div
+                    style={{
+                        position: 'relative',
+                        top: '-480px',
+                        zIndex: '9'
+                    }}>
+                <img
+
+                    src={images[currentKanji]}/>
+                </div>
             </div>
         </div>
     );
