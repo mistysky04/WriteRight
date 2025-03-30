@@ -1,0 +1,9 @@
+.kanji-btn {
+    background-color: #ecaab5;
+    width: 50px;
+    /* Adjust as needed */
+    height: 50px;
+    /* Adjust as needed */
+    font-size: 1.5rem;
+    /* Prevent unwanted animations */
+}

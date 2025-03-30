@@ -1,19 +1,14 @@
 #root {
-  max-width: 1280px;
+  max-width: 100vh;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -22,6 +17,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -41,19 +37,23 @@
   color: #888;
 }
 
-
 /* === HandDrawing Video and Canvas Overlay === */
 .video-overlay-container {
+  margin: 1rem auto;
+  /* Add margin at the top */
   position: relative;
   width: 640px;
   height: 480px;
+  display: block;
+  /* Center the container */
 }
 
 .video-overlay-container video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scaleX(-1); /* Mirrored webcam */
+  transform: scaleX(-1);
+  /* Mirrored webcam */
   position: absolute;
   top: 0;
   left: 0;
@@ -64,6 +64,14 @@
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 2; /* Ensure it appears above the video */
+  z-index: 2;
+  /* Ensure it appears above the video */
   pointer-events: none;
+}
+
+.kanji-buttons-container {
+  margin-top: 1rem;
+  /* Add spacing below the HandDrawing */
+  text-align: center;
+  /* Center the buttons */
 }
