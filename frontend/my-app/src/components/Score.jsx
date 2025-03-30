@@ -5,11 +5,10 @@ const Score = () => {
 
     return (
         <div>
-            <h1>Score</h1>
+            <h1 style={{color: 'black'}}>Score</h1>
             {/* Add your component logic and UI here */}
         </div>
     );
 };
 
 export default Score;
-s
