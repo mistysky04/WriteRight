@@ -54,7 +54,7 @@ router.post('/image', upload.single('image'), async (req, res) => {
 function getConfidence(result) {
     console.log(JSON.stringify(result));
     const blocks = result.readResult?.blocks || [];
-    return Math.floor(Math.random() * (95 - 80 + 1)) + 80;
+    return Math.random() * (95 - 80 + 1) + 80;
 }
 
 
