@@ -126,7 +126,7 @@ const HandDrawing = ({currentKanji, images}) => {
                         zIndex: '9'
                     }}>
                 <img
-
+                style={{opacity: 0.5}}
                     src={images[currentKanji]}/>
                 </div>
             </div>
