@@ -33,7 +33,7 @@ const HandCanvas = ({ landmarks }) => {
             const indexFinger = hand[8];
 
             if (indexFinger) {
-                // Draw just the index fingertip as a larger red dot
+                // Draw just the index fingertip as a larger dot
                 ctx.fillStyle = 'red';
                 ctx.beginPath();
                 ctx.arc(indexFinger.x * width, indexFinger.y * height, 10, 0, 2 * Math.PI);
