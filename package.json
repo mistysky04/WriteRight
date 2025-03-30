@@ -1,1 +1,7 @@
-{}
+{
+  "scripts": {
+    "start-b": "cd backend && node index.js",
+    "start-f": "cd frontend/my-app && npm run dev"
+  }
+
+}
