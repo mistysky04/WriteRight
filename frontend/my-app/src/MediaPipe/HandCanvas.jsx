@@ -136,7 +136,7 @@ const HandCanvas = ({ landmarks }) => {
     const saveDrawing = () => {
         if (!drawingCanvasRef.current) return;
         const link = document.createElement('a');
-        link.download = 'hand-drawing.png';
+        link.download = 'PEEPEEPOOPOO.png';
         link.href = drawingCanvasRef.current.toDataURL();
         link.click();
     };
