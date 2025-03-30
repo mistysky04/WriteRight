@@ -233,9 +233,8 @@
 }
 
 /* Vertical alignment for the toggle and text */
-.checkbox-wrapper-22 {
-  display: flex;
-  align-items: center;
+.checkbox-wrapper-22 input:checked + .slider {
+  background-color: #7AA166;
 }
 
 .checkbox-wrapper-22 span {
