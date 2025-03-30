@@ -9,12 +9,9 @@ const HandCanvas = ({ landmarks }) => {
     // Drawing settings
     const [penColor, setPenColor] = useState('#000000');
     const [lineWidth, setLineWidth] = useState(3);
-    const [drawingHistory, setDrawingHistory] = useState([]);
 
-    // Z-threshold for drawing - adjust this value based on testing
-    // For MediaPipe Tasks Vision, Z values are typically normalized differently
-    // You may need to adjust this threshold after testing
-    const Z_THRESHOLD = 0.08; // Positive value because Tasks Vision uses different coordinate system
+
+    const Z_THRESHOLD = 0.08; /// Z-threshold for drawing
 
     // Draw the hand skeleton and landmarks
     useEffect(() => {
@@ -34,13 +31,13 @@ const HandCanvas = ({ landmarks }) => {
 
             if (indexFinger) {
                 // Draw just the index fingertip as a larger dot
-                ctx.fillStyle = 'red';
+                ctx.fillStyle = penColor;
                 ctx.beginPath();
                 ctx.arc(indexFinger.x * width, indexFinger.y * height, 10, 0, 2 * Math.PI);
                 ctx.fill();
 
                 // Add a white border for better visibility
-                ctx.strokeStyle = 'white';
+                ctx.strokeStyle = 'black';
                 ctx.lineWidth = 2;
                 ctx.stroke();
 
@@ -90,10 +87,6 @@ const HandCanvas = ({ landmarks }) => {
         } else if (isDrawing) {
             // Lift the pen
             setIsDrawing(false);
-
-            // Save current drawing state for undo functionality
-            const imageData = drawingCanvasRef.current.toDataURL();
-            setDrawingHistory(prev => [...prev, imageData]);
         }
     };
 
@@ -102,34 +95,6 @@ const HandCanvas = ({ landmarks }) => {
         if (!drawingCanvasRef.current) return;
         const drawCtx = drawingCanvasRef.current.getContext('2d');
         drawCtx.clearRect(0, 0, drawingCanvasRef.current.width, drawingCanvasRef.current.height);
-
-        // Reset drawing history
-        setDrawingHistory([]);
-    };
-
-    // Undo last drawing action
-    const undoLastDrawing = () => {
-        if (drawingHistory.length === 0) return;
-
-        // Remove the last item from history
-        const newHistory = [...drawingHistory];
-        newHistory.pop();
-        setDrawingHistory(newHistory);
-
-        if (!drawingCanvasRef.current) return;
-        const drawCtx = drawingCanvasRef.current.getContext('2d');
-
-        // Clear canvas
-        drawCtx.clearRect(0, 0, drawingCanvasRef.current.width, drawingCanvasRef.current.height);
-
-        // Redraw from the last saved state
-        if (newHistory.length > 0) {
-            const img = new Image();
-            img.onload = () => {
-                drawCtx.drawImage(img, 0, 0);
-            };
-            img.src = newHistory[newHistory.length - 1];
-        }
     };
 
     // Save drawing as image
@@ -183,7 +148,7 @@ const HandCanvas = ({ landmarks }) => {
                 zIndex: 20,
                 display: 'flex',
                 gap: '10px',
-                backgroundColor: 'rgba(255, 255, 255, 0.7)',
+                backgroundColor: 'rgba(255, 255, 255, 0.5)',
                 padding: '5px',
                 borderRadius: '5px'
             }}>
@@ -202,7 +167,6 @@ const HandCanvas = ({ landmarks }) => {
                     onChange={(e) => setLineWidth(parseInt(e.target.value))}
                     className="w-24"
                 />
-                <button onClick={undoLastDrawing} className="px-2 py-1 bg-gray-500 text-white rounded">Undo</button>
                 <button onClick={saveDrawing} className="px-2 py-1 bg-green-500 text-white rounded">Save</button>
             </div>
 
@@ -212,7 +176,7 @@ const HandCanvas = ({ landmarks }) => {
                 top: '10px',
                 left: '10px',
                 zIndex: 20,
-                backgroundColor: isDrawing ? 'rgba(0, 255, 0, 0.5)' : 'rgba(255, 0, 0, 0.5)',
+                backgroundColor: isDrawing ? '#7AA166' : '#C46156',
                 padding: '5px 10px',
                 borderRadius: '5px',
                 color: 'white',
