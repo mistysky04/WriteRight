@@ -40,3 +40,30 @@
 .read-the-docs {
   color: #888;
 }
+
+
+/* === HandDrawing Video and Canvas Overlay === */
+.video-overlay-container {
+  position: relative;
+  width: 640px;
+  height: 480px;
+}
+
+.video-overlay-container video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1); /* Mirrored webcam */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.video-overlay-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2; /* Ensure it appears above the video */
+  pointer-events: none;
+}

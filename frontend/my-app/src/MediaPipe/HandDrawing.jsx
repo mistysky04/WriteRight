@@ -115,19 +115,11 @@ const HandDrawing = () => {
             </div>
 
             {/* Video feed with overlay container */}
-            <div className="video-container relative w-full h-full">
-                <video
+            <div className="video-overlay-container">
+            <video
                     ref={videoRef}
                     autoPlay
                     playsInline
-                    className="w-full h-full"
-                    style={{
-                        transform: 'scaleX(-1)',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        zIndex: 5
-                    }}
                 />
                 <HandCanvas landmarks={landmarks} />
             </div>
