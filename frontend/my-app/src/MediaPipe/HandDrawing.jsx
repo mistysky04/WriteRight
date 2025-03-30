@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { HandLandmarker, FilesetResolver } from "@mediapipe/tasks-vision";
 import HandCanvas from './HandCanvas';
+import '../App.css';
 
 const HandDrawing = () => {
     const videoRef = useRef(null);
@@ -94,21 +95,20 @@ const HandDrawing = () => {
 
             {/* Debug mode toggle */}
             <div className="absolute top-2 right-2 z-20">
-                <label className="flex items-center space-x-2">
-                    <input
-                        type="checkbox"
-                        checked={isDebugMode}
-                        onChange={() => setIsDebugMode(!isDebugMode)}
-                        className="form-checkbox h-4 w-4"
-                    />
-                    <span>See Closeness</span>
-                </label>
-
-                {isDebugMode && (
-                    <div className="bg-black bg-opacity-70 text-white p-2 mt-2 rounded text-sm">
-                        <p>Closeness: {zValue.toFixed(1)}</p>
-                    </div>
-                )}
+                <div className="checkbox-wrapper-22" style={{ display: 'flex', alignItems: 'center' }}>
+                    <label className="switch" htmlFor="debug-mode">
+                        <input
+                            type="checkbox"
+                            id="debug-mode"
+                            checked={isDebugMode}
+                            onChange={() => setIsDebugMode(!isDebugMode)}
+                        />
+                        <div className="slider round"></div>
+                    </label>
+                    <span className="ml-2" style={{ marginLeft: '8px' }}>
+            {isDebugMode ? zValue.toFixed(1) : "See Closeness"}
+        </span>
+                </div>
             </div>
 
             {/* Video feed with overlay container */}
