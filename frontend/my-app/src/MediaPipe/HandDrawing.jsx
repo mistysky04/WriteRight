@@ -105,7 +105,7 @@ const HandDrawing = ({currentKanji, images}) => {
                         />
                         <div className="slider round"></div>
                     </label>
-                    <span className="ml-2" style={{ marginLeft: '8px' }}>
+                    <span className="ml-2" style={{ marginLeft: '8px', color: 'black' }}>
             {isDebugMode ? zValue.toFixed(1) : "See Closeness"}
         </span>
                 </div>
