@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import './App.css'
 import Logo from './components/Logo.jsx';
 import KanjiButtons from './components/KanjiButtons.jsx';
@@ -13,17 +13,18 @@ import overlayGo from "./assets/overlay_5go.png";
 import Score from './components/Score.jsx';
 
 function App() {
-    // State to track which image is currently displayed (null means no image)
-    const [currentKanji, setCurrentKanji] = useState(null);
+  // State to track which image is currently displayed (null means no image)
+  const [currentKanji, setCurrentKanji] = useState(null);
+  const [score, setScore] = React.useState(null); // Initialize score state
 
-    // Image data mapping buttons to their respective images
-    const images = {
-        "一": overlayIchi,
-        "二": overlayNi,
-        "三": overlaySan,
-        "四": overlayYon,
-        "五": overlayGo
-    };
+  // Image data mapping buttons to their respective images
+  const images = {
+    一: overlayIchi,
+    二: overlayNi,
+    三: overlaySan,
+    四: overlayYon,
+    五: overlayGo
+  };
   return (
     <div className="App">
       <div className="paper-background"></div>
@@ -32,11 +33,19 @@ function App() {
       </div>
       <div className="three-column-layout">
         <div className="column left-spacer">
-          <Score />
+          <Score score={score}/>
         </div>
         <div className="column center-content">
-          <HandDrawing currentKanji={currentKanji} images={images}/>
-          <KanjiButtons currentKanji={currentKanji} setCurrentKanji={setCurrentKanji} images={images}/>
+          <HandDrawing 
+          currentKanji={currentKanji} 
+          images={images}
+          setScore = {setScore}
+          />
+          <KanjiButtons
+            currentKanji={currentKanji}
+            setCurrentKanji={setCurrentKanji}
+            images={images}
+          />
         </div>
         <div className="column right-content">
           <Instructions />
@@ -46,7 +55,7 @@ function App() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default App;
