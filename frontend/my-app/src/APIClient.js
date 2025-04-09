@@ -23,6 +23,7 @@ export default class APIClient {
             }
 
             const data = await response.json();
+            console.log(`Score = ${data}`)
             return data;
 
         } catch (err) {
