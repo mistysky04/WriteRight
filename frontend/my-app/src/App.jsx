@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import './App.css'
 import Logo from './components/Logo.jsx';
 import KanjiButtons from './components/KanjiButtons.jsx';
