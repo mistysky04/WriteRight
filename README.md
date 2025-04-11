@@ -1,48 +1,53 @@
-# WriteRight - A BCSHacks Project 2025
 
-**WriteRight** is an interactive app designed to help users practice Kanji handwriting with real-time feedback. By leveraging hand motion tracking technology and optical character recognition (OCR), WriteRight helps learners refine their handwriting and provides instant scores for accuracy. 
+# Turn movement into mastery: the new way to learn writing
+
+https://github.com/user-attachments/assets/a426aa35-2644-4781-9bf4-08f97fcecf25
 
 ## Table of Contents
-1. [Demo](#demo)
-2. [Project Overview](#project-overview)
-3. [Features](#features)
-4. [Installation Instructions](#installation-instructions)
-5. [User Instructions](#user-instructions)
-6. [Technologies Used](#technologies-used)
-7. [Contributing](#contributing)
----
+- [✒️ Project Overview](#️-project-overview)
+- [🖥️ Tech Stack & Features](#️-tech-stack--features)
+- [➡️ WriteRight Basic User Flow](#️-writeright-basic-user-flow)
+- [🎨 Mascots](#-mascots)
+- [📼 Video Demo](#-video-demo)
+- [🔎 Looking Ahead](#-looking-ahead)
+- [💾 Installation Instructions](#-installation-instructions)
 
-## Demo
+## ✒️ Project Overview
+**WriteRight** is an interactive app designed to help users practice Kanji handwriting with real-time feedback, created for the 24-hour BCS hackathon at UBC. It transforms your webcam into an interactive writing tool that tracks and traces your index finger movements, providing overlays to help you learn by tracing the flow and structure of the characters. By leveraging hand motion tracking technology and optical character recognition (OCR), WriteRight helps learners refine their handwriting and provides instant scores for accuracy. 
+
+Several benefits of WriteRight includes:
+- ✔️ Reducing strain on hand caused by writing complex scripts with a pen and paper
+- ✔️ Improves accessibility for students with ADHD/Kinesthetic learners
+- ✔️ Allows students to focus on the flow and structure of characters rather than managing writing tools
+
+## 🖥️ Tech Stack & Features
+- **React** – For front-end development JavaScript library for building user interfaces.
+- **Vite** – Build tool for development
+- **Node.js** – JavaScript runtime for backend operations
+- **Google Mediapipe API** – Used for hand motion tracking
+- **Azure AI Vision OCR** – For comparing user input with the correct Kanji for accuracy score
+
+## ➡️ WriteRight Basic User Flow
+![Screenshot 2025-04-10 162516](https://github.com/user-attachments/assets/847c3e31-3e13-419e-974c-711735c3dd56)
+
+## 🎨 Mascots
+![Screenshot 2025-04-10 173827](https://github.com/user-attachments/assets/33a18d83-d1ec-44df-961b-a53c01676ec0)
+
+
+## 📼 Video Demo
 
 Check out the demo of **WriteRight** in action below:
 
-**_insert GIF here_**![WriteRight Demo](assets/demo.gif)
-
-Alternatively, watch the full demo on YouTube:
-
 [![Watch the demo video](https://img.youtube.com/vi/OHakj5i-bcU/0.jpg)](https://www.youtube.com/watch?v=OHakj5i-bcU)
 
----
+## 🔎 Looking Ahead
+Our team is continuing to work on WriteRight to improve the user interface and experience! Here are some of our future goals for the project:
+- 📌**Smoother Writing Experience:** We will be making the drawing action more intuitive for the user and improving the smoothness of the lines drawn to ensure the provided score of accuracy is an accurate reflection of the user’s writing ability
+- 📌**Kanji Information:** We will be adding details about each Kanji including the kunyomi and onyomi pronounciations, example words, etc.
+- 📌**Restructuring Kanji Lessons:** Kanji will be organized by their groupings in the Genki textbooks, which are commonly utilized books for both self-learning and university education
+- 📌**Analytics:** We will be implementing a database to track and update a user’s familiarity with each Kanji and their relevant scores of writing accuracy. This will allow users to understand which Kanji they are struggling with the most so they can create a study schedule that suits their needs best. 
 
-## Project Overview
-
-- WriteRight is a web application that transforms your webcam into an interactive writing tool that tracks and traces your index finger movements in realtime
-- The app offers kanji character template overlays so that users can trace to learn and receive immediate visual feedback whcih llows students to focus on the flow and structure of characters rather than managing writing tools.
-
----
-
-## Features
-
-- **Webcam Capture**: Uses the webcam to track hand movements as the user writes.
-- **Hand Motion Tracking**: Real-time tracking of hand gestures using Google’s Mediapipe API.
-- **OCR Comparison**: Analyzes the drawn Kanji and compares it with a correct version of the character.
-- **Accuracy Scoring**: Provides users with a score based on the accuracy of their strokes and character order.
-- **Multiple Modes**: Practice different aspects of Kanji, such as stroke order and pronunciation.
-- **Progress Tracking**: Save your progress and revisit past attempts to monitor improvement.
-
----
-
-## Installation Instructions
+## 💾 Installation Instructions
 
 To set up **WriteRight** on your local machine, follow these steps:
 
@@ -69,18 +74,6 @@ To set up **WriteRight** on your local machine, follow these steps:
 - **More Modes**: Explore different modes, such as pronunciation practice and stroke order training.
 
 - **Save Progress**: Track your improvement over time by saving your scores and revisiting them later.
-
----
-
-## Technologies Used
-
-- **React** – JavaScript library for building user interfaces.
-- **Vite** – A build tool for development.
-- **Google Mediapipe API** – Used for hand motion tracking.
-- **OCR (Optical Character Recognition)** – For comparing user input with the correct Kanji.
-- **Framer Motion** – For smooth animations.
-- **MDB React UI Kit** – For responsive and pre-built UI components.
-- **Node.js** – JavaScript runtime for backend operations.
 
 ---
 
